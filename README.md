@@ -257,7 +257,7 @@ Copyright (c) 2026 **ALISH AQADIL**
 The original source code and unique implementation details for this project are proprietary. While the live site at `aqadilos.web.app` is intended for learning and demonstration, please respect the following terms:
 
 - Unauthorized use, reproduction, distribution or hosting of this project, in whole or in part, is prohibited.
-- The project is not licensed for reuse in other products or portfolios, whether commercial or non-commercial.
+- The project is not licensed for reuse in other products or portfolios, whether commercial or non-commercial..
 - Cloning the full experience, copying the visual identity, or repackaging it under a different name is not permitted.
 
 If you are interested in technical ideas from AqadilOS, treat it as a reference for patterns, not as a template to copy directly.
