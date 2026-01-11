@@ -1,0 +1,168 @@
+﻿@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Fallback styles if Tailwind fails */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { 
+  margin: 0; 
+  overflow: hidden; 
+  background: #f8fafc; 
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+  user-select: none; 
+}
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #555; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #777; }
+
+@layer base {
+  body {
+    @apply bg-slate-50 text-slate-800 overflow-hidden font-sans select-none;
+  }
+  
+  ::-webkit-scrollbar {
+    @apply w-2;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gray-600 rounded;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-500;
+  }
+}
+
+@layer components {
+  .os-glass {
+    @apply bg-white/85 backdrop-blur-xl border border-gray-200;
+  }
+  
+  .os-window {
+    @apply os-glass rounded-xl shadow-os-window;
+  }
+  
+  .os-window-active {
+    @apply border-os-accent/50 shadow-os-window-active;
+  }
+  
+  .desktop-icon {
+    @apply w-24 flex flex-col items-center gap-2 p-3 rounded-xl hover:bg-gray-100 transition-all cursor-pointer;
+  }
+  
+  .taskbar {
+    @apply fixed bottom-0 left-0 right-0 h-12 bg-white/95 backdrop-blur-2xl border-t border-gray-200;
+  }
+  
+  .boot-text {
+    @apply font-mono text-blue-600;
+  }
+}
+
+/* Basic Tailwind classes as fallback */
+.h-screen { height: 100vh; }
+.w-screen { width: 100vw; }
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.items-center { align-items: center; }
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+.gap-2 { gap: 0.5rem; }
+.gap-4 { gap: 1rem; }
+.p-3 { padding: 0.75rem; }
+.p-4 { padding: 1rem; }
+.p-8 { padding: 2rem; }
+.px-4 { padding-left: 1rem; padding-right: 1rem; }
+.py-1 { padding-top: 0.25rem; padding-bottom: 0.25rem; }
+.py-2 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+.mb-1 { margin-bottom: 0.25rem; }
+.bg-slate-50 { background: #f8fafc; }
+.bg-white\/10 { background: rgba(255,255,255,0.1); }
+.bg-white\/95 { background: rgba(255,255,255,0.95); }
+.bg-white\/85 { background: rgba(255,255,255,0.85); }
+.bg-gray-100 { background: #f3f4f6; }
+.text-slate-800 { color: #1e293b; }
+.text-blue-600 { color: #2563eb; }
+.text-blue-400 { color: #60a5fa; }
+.text-xs { font-size: 0.75rem; }
+.text-sm { font-size: 0.875rem; }
+.font-mono { font-family: ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', Menlo, monospace; }
+.font-medium { font-weight: 500; }
+.font-bold { font-weight: 700; }
+.text-center { text-align: center; }
+.rounded-xl { border-radius: 0.75rem; }
+.rounded-2xl { border-radius: 1rem; }
+.rounded-full { border-radius: 9999px; }
+.border { border: 1px solid rgba(0,0,0,0.1); }
+.border-t { border-top: 1px solid rgba(0,0,0,0.1); }
+.border-gray-200 { border-color: #e5e7eb; }
+.backdrop-blur-xl { backdrop-filter: blur(24px); }
+.backdrop-blur-2xl { backdrop-filter: blur(40px); }
+.backdrop-blur-sm { backdrop-filter: blur(4px); }
+.shadow-lg { box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3), 0 4px 6px -2px rgba(0,0,0,0.2); }
+.shadow-2xl { box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); }
+.shadow-os-window { box-shadow: 0 20px 50px rgba(0,0,0,0.15), 0 0 0 1px rgba(0,0,0,0.1); }
+.shadow-os-window-active { box-shadow: 0 25px 60px rgba(0,0,0,0.2), 0 0 0 1px rgba(59,130,246,0.3); }
+.transition-all { transition: all 0.15s ease-in-out; }
+.transition-colors { transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out; }
+.transition-transform { transition: transform 0.15s ease-in-out; }
+.duration-200 { transition-duration: 200ms; }
+.hover\:bg-gray-100:hover { background: #f3f4f6; }
+.hover\:scale-105:hover { transform: scale(1.05); }
+.hover\:scale-110:hover { transform: scale(1.1); }
+.cursor-pointer { cursor: pointer; }
+.cursor-default { cursor: default; }
+.select-none { user-select: none; }
+.outline-none { outline: none; }
+.truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.w-14 { width: 3.5rem; }
+.w-16 { width: 4rem; }
+.w-24 { width: 6rem; }
+.w-64 { width: 16rem; }
+.w-full { width: 100%; }
+.h-4 { height: 1rem; }
+.h-10 { height: 2.5rem; }
+.h-12 { height: 3rem; }
+.h-14 { height: 3.5rem; }
+.h-16 { height: 4rem; }
+.max-w-2xl { max-width: 42rem; }
+.mx-auto { margin-left: auto; margin-right: auto; }
+.relative { position: relative; }
+.absolute { position: absolute; }
+.fixed { position: fixed; }
+.inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
+.bottom-0 { bottom: 0; }
+.bottom-16 { bottom: 4rem; }
+.left-0 { left: 0; }
+.right-0 { right: 0; }
+.top-0 { top: 0; }
+.left-1\/2 { left: 50%; }
+.-translate-x-1\/2 { transform: translateX(-50%); }
+.-bottom-1 { bottom: -0.25rem; }
+.z-0 { z-index: 0; }
+.z-10 { z-index: 10; }
+.z-20 { z-index: 20; }
+.z-\[90\] { z-index: 90; }
+.z-\[100\] { z-index: 100; }
+.z-\[9999\] { z-index: 9999; }
+.flex-1 { flex: 1 1 0%; }
+.flex-wrap { flex-wrap: wrap; }
+.content-start { align-content: flex-start; }
+.hidden { display: none; }
+.opacity-0 { opacity: 0; }
+.opacity-100 { opacity: 1; }
+.animate-pulse { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+.animate-boot-line { animation: boot-line 0.3s ease-out; }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+@keyframes boot-line { 0% { opacity: 0; transform: translateY(-10px); } 100% { opacity: 1; transform: translateY(0); } }
+.inline-block { display: inline-block; }
+.group:hover .group-hover\:scale-105 { transform: scale(1.05); }
+.group:hover .group-hover\:scale-110 { transform: scale(1.1); }
+
+/* Scrollbar styles */
+.scrollbar-thin { scrollbar-width: thin; }
+.scrollbar-thumb-gray-600::-webkit-scrollbar-thumb { background: #4b5563; border-radius: 4px; }
+.scrollbar-track-transparent::-webkit-scrollbar-track { background: transparent; }
+.scrollbar-thumb-gray-600::-webkit-scrollbar-thumb:hover { background: #6b7280; }
