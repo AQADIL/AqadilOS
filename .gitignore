@@ -22,3 +22,11 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Firebase
+.firebase/
+.firebaserc
+firebase.json
+
+# Node lockfiles (keep package.json tracked)
+package-lock.json

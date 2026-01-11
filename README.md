@@ -1,7 +1,17 @@
 # AqadilOS
+<table>
+  <tr>
+    <td width="50%"><img src="public/review1.png" alt="Описание 1"></td>
+    <td width="50%"><img src="public/review2.png" alt="Описание 2"></td>
+  </tr>
+</table>
 
-<!-- Project hero / screenshot placeholder -->
-<!-- Example: ![AqadilOS desktop](./docs/aqadilos-desktop.png) -->
+<table>
+  <tr>
+    <td width="50%"><img src="public/review3.png" alt="Описание 3"></td>
+    <td width="50%"><img src="public/review4.png" alt="Описание 4"></td>
+  </tr>
+</table>
 
 ## Project Overview
 
