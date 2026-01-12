@@ -28,10 +28,10 @@ const getBootLines = () => {
     // Replace the generic F11 message with Mac-specific one
     const f11Index = baseLines.findIndex(line => line.includes('Press F11 for maximum experience'));
     if (f11Index !== -1) {
-      baseLines[f11Index] = '[SYSTEM] Press Cmd+Ctrl+F for maximum experience...';
+      baseLines[f11Index] = '[SYSTEM] Press Cmd+Ctrl+F or Fn+F for maximum experience...';
     }
     // Insert additional Mac instruction
-    baseLines.splice(insertIndex, 0, '[SYSTEM] macOS fullscreen mode activated');
+    baseLines.splice(insertIndex, 0, '[SYSTEM] macOS fullscreen shortcuts available');
   }
   
   return baseLines;
@@ -77,13 +77,14 @@ export default function BootScreen({ onComplete }) {
     if (!bootComplete || f11Activated) return;
     
     if (isMac()) {
-      // Mac users: only accept Cmd+Ctrl+F
-      if (e.metaKey && e.ctrlKey && e.key === 'f') {
+      // Mac users: accept Cmd+Ctrl+F or Fn+F
+      if ((e.metaKey && e.ctrlKey && e.key === 'f') || 
+          (e.key === 'f' && e.altKey)) {  // Fn+F often registers as Alt+F
         e.preventDefault();
         activateFullscreen();
       }
     } else {
-      // Windows/Linux users: only accept F11
+
       if (e.key === 'F11') {
         activateFullscreen();
       }
