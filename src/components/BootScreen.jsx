@@ -19,7 +19,7 @@ const isMac = () => {
   return /Mac|iMac|Macintosh|MacIntel|MacPPC|Mac68K/i.test(navigator.platform) || 
          /Mac/i.test(navigator.userAgent);
 };
-
+//yooo
 const getBootLines = () => {
   const baseLines = [...bootLines];
   const insertIndex = baseLines.findIndex(line => line.includes('[F11 STATUS]'));
