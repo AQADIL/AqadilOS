@@ -15,6 +15,28 @@ const bootLines = [
   '[F11 STATUS] >>> WAITING FOR INPUT <<<'
 ];
 
+const isMac = () => {
+  return /Mac|iMac|Macintosh|MacIntel|MacPPC|Mac68K/i.test(navigator.platform) || 
+         /Mac/i.test(navigator.userAgent);
+};
+
+const getBootLines = () => {
+  const baseLines = [...bootLines];
+  const insertIndex = baseLines.findIndex(line => line.includes('[F11 STATUS]'));
+  
+  if (isMac()) {
+    // Replace the generic F11 message with Mac-specific one
+    const f11Index = baseLines.findIndex(line => line.includes('Press F11 for maximum experience'));
+    if (f11Index !== -1) {
+      baseLines[f11Index] = '[SYSTEM] Press Cmd+Ctrl+F for maximum experience...';
+    }
+    // Insert additional Mac instruction
+    baseLines.splice(insertIndex, 0, '[SYSTEM] macOS fullscreen mode activated');
+  }
+  
+  return baseLines;
+};
+
 export default function BootScreen({ onComplete }) {
   const [lines, setLines] = useState([]);
   const [currentLine, setCurrentLine] = useState(0);
@@ -23,17 +45,18 @@ export default function BootScreen({ onComplete }) {
   const [bootComplete, setBootComplete] = useState(false);
 
   useEffect(() => {
-    if (currentLine < bootLines.length) {
+    const dynamicBootLines = getBootLines();
+    if (currentLine < dynamicBootLines.length) {
       const timeout = setTimeout(() => {
-        setLines(prev => [...prev, bootLines[currentLine]]);
+        setLines(prev => [...prev, dynamicBootLines[currentLine]]);
         setCurrentLine(prev => prev + 1);
         
 
-        if (currentLine === bootLines.length - 1) {
+        if (currentLine === dynamicBootLines.length - 1) {
           setBootComplete(true);
         }
       }, Math.random() * 800 + 200);
-      return () => clearTimeout(timeout);
+      return () => clearTimeout(timeout);   
     }
   }, [currentLine]);
 
@@ -53,21 +76,35 @@ export default function BootScreen({ onComplete }) {
   const handleKeyPress = (e) => {
     if (!bootComplete || f11Activated) return;
     
-    if (e.key === 'F11') {
-      setF11Activated(true);
-      
-      setLines(prev => {
-        const newLines = [...prev];
-        const statusIndex = newLines.findIndex(line => line.includes('[F11 STATUS]'));
-        if (statusIndex !== -1) {
-          newLines[statusIndex] = '[F11 STATUS] >>> ACTIVATED <<<';
-        }
-        return newLines;
-      });
-      
-      console.log('[F11 PROTOCOL] MAXIMUM EXPERIENCE ACTIVATED');
-      setTimeout(onComplete, 1000);
+    if (isMac()) {
+      // Mac users: only accept Cmd+Ctrl+F
+      if (e.metaKey && e.ctrlKey && e.key === 'f') {
+        e.preventDefault();
+        activateFullscreen();
+      }
+    } else {
+      // Windows/Linux users: only accept F11
+      if (e.key === 'F11') {
+        activateFullscreen();
+      }
     }
+  };
+
+  const activateFullscreen = () => {
+    setF11Activated(true);
+    
+    setLines(prev => {
+      const newLines = [...prev];
+      const statusIndex = newLines.findIndex(line => line.includes('[F11 STATUS]'));
+      if (statusIndex !== -1) {
+        const deviceType = isMac() ? 'MAC' : 'PC';
+        newLines[statusIndex] = `[F11 STATUS] >>> ACTIVATED (${deviceType}) <<<`;
+      }
+      return newLines;
+    });
+    
+    console.log(`[F11 PROTOCOL] MAXIMUM EXPERIENCE ACTIVATED (${isMac() ? 'MAC' : 'PC'})`);
+    setTimeout(onComplete, 1000);
   };
 
 
@@ -78,11 +115,12 @@ export default function BootScreen({ onComplete }) {
         const newLines = [...prev];
         const statusIndex = newLines.findIndex(line => line.includes('[F11 STATUS]'));
         if (statusIndex !== -1) {
-          newLines[statusIndex] = '[F11 STATUS] >>> AUTO-ACTIVATED (MOBILE) <<<';
+          const deviceType = isMac() ? 'MAC-MOBILE' : 'MOBILE';
+          newLines[statusIndex] = `[F11 STATUS] >>> AUTO-ACTIVATED (${deviceType}) <<<`;
         }
         return newLines;
       });
-      console.log('[F11 PROTOCOL] MAXIMUM EXPERIENCE AUTO-ACTIVATED (MOBILE)');
+      console.log(`[F11 PROTOCOL] MAXIMUM EXPERIENCE AUTO-ACTIVATED (${isMac() ? 'MAC-MOBILE' : 'MOBILE'})`);
       setTimeout(onComplete, 1000);
     }
   }, [bootComplete, f11Activated]);
@@ -104,7 +142,7 @@ export default function BootScreen({ onComplete }) {
             {line || <span>&nbsp;</span>}
           </div>
         ))}
-        {currentLine < bootLines.length && (
+        {currentLine < getBootLines().length && (
           <span className={`inline-block w-2 h-4 bg-green-400 ml-1 ${showCursor ? 'opacity-100' : 'opacity-0'} ${bootComplete ? 'bg-red-400' : ''}`} />
         )}
       </div>
