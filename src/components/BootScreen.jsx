@@ -25,13 +25,11 @@ const getBootLines = () => {
   const insertIndex = baseLines.findIndex(line => line.includes('[F11 STATUS]'));
   
   if (isMac()) {
-    // Replace the generic F11 message with Mac-specific one
     const f11Index = baseLines.findIndex(line => line.includes('Press F11 for maximum experience'));
     if (f11Index !== -1) {
-      baseLines[f11Index] = '[SYSTEM] Press Cmd+Ctrl+F or Fn+F for maximum experience...';
+      baseLines[f11Index] = '[SYSTEM] macOS auto-activating fullscreen...';
     }
-    // Insert additional Mac instruction
-    baseLines.splice(insertIndex, 0, '[SYSTEM] macOS fullscreen shortcuts available');
+    baseLines.splice(insertIndex, 0, '[SYSTEM] macOS fullscreen mode ready');
   }
   
   return baseLines;
@@ -77,9 +75,8 @@ export default function BootScreen({ onComplete }) {
     if (!bootComplete || f11Activated) return;
     
     if (isMac()) {
-      // Mac users: accept Cmd+Ctrl+F or Fn+F
       if ((e.metaKey && e.ctrlKey && e.key === 'f') || 
-          (e.key === 'f' && e.altKey)) {  // Fn+F often registers as Alt+F
+          (e.key === 'f' && e.altKey)) {  
         e.preventDefault();
         activateFullscreen();
       }
@@ -110,18 +107,33 @@ export default function BootScreen({ onComplete }) {
 
 
   useEffect(() => {
-    if (bootComplete && !f11Activated && isMobile()) {
+    if (bootComplete && !f11Activated && (isMobile() || isMac())) {
       setF11Activated(true);
       setLines(prev => {
         const newLines = [...prev];
         const statusIndex = newLines.findIndex(line => line.includes('[F11 STATUS]'));
         if (statusIndex !== -1) {
-          const deviceType = isMac() ? 'MAC-MOBILE' : 'MOBILE';
+          let deviceType;
+          if (isMobile()) {
+            deviceType = isMac() ? 'MAC-MOBILE' : 'MOBILE';
+          } else if (isMac()) {
+            deviceType = 'MAC';
+          } else {
+            deviceType = 'PC';
+          }
           newLines[statusIndex] = `[F11 STATUS] >>> AUTO-ACTIVATED (${deviceType}) <<<`;
         }
         return newLines;
       });
-      console.log(`[F11 PROTOCOL] MAXIMUM EXPERIENCE AUTO-ACTIVATED (${isMac() ? 'MAC-MOBILE' : 'MOBILE'})`);
+      let deviceType;
+      if (isMobile()) {
+        deviceType = isMac() ? 'MAC-MOBILE' : 'MOBILE';
+      } else if (isMac()) {
+        deviceType = 'MAC';
+      } else {
+        deviceType = 'PC';
+      }
+      console.log(`[F11 PROTOCOL] MAXIMUM EXPERIENCE AUTO-ACTIVATED (${deviceType})`);
       setTimeout(onComplete, 1000);
     }
   }, [bootComplete, f11Activated]);
