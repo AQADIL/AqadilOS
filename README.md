@@ -271,4 +271,3 @@ If you encounter a site that closely replicates AqadilOS and is not hosted under
 then it is not an official deployment. These unauthorized copies are often outdated, incomplete or broken and do not represent the quality or intent of the original work.
 
 For the authentic version and latest updates, always refer to `aqadilos.web.app` or the official repository managed by ALISH AQADIL.
-
