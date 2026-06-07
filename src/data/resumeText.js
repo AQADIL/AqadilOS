@@ -8,20 +8,30 @@ admin@judgo.tech
 youtub.maj@gmail.com
 github.com/AQADIL
 
+
 SUMMARY
 Product-driven Fullstack Developer and EdTech founder. Specialized in architecting scalable web ecosystems, real-time systems, and high-performance applications from the ground up. 
 Proven ability to bridge complex business logic with seamless user experiences, transitioning from conceptual design to secure, production-ready cloud infrastructure.
 
+
 TECHNICAL SKILLS
 Frontend: React 18, Next.js, JavaScript, Tailwind CSS, Headless UI, Lucide React, React Hot Toast
+
 3D, Motion & Visuals: Three.js, React Three Fiber (R3F), Drei , Framer Motion, Canvas API
+
 State Management & Architecture: Zustand, React Context API
+
 Backend & APIs: Node.js, Express.js, NestJS, Golang (Go), питон, REST API, WebSockets
+
 Database & Cloud Infrastructure: Firebase Ecosystem (Firestore, Auth, Cloud Functions, Realtime Database), postgres, mySQL, sqlite3
+
 Build Tools & DevOps: Vite, Rolldown (Vite core), Git, GitHub Flow, ESLint, PostCSS
+
 Specialized Libraries & Integrations: Monaco Editor, Recharts (Data Visualization), i18n (react-i18next), KaTeX (Math Rendering), Plyr (Media Integration)
 
+
 PROJECTS
+
 
 AkadilEDU | Founder & Developer
 akadiledu.web.app
