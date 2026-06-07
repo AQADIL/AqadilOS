@@ -145,10 +145,13 @@ export default function Notepad() {
       .replace(/\s+/g, '-')
       .replace(/\.[^./]+$/, '') || 'RESUME';
 
-    const escapedContent = (content || '')
+    // Don't escape HTML tags - allow <strong> and <em> to render
+    const htmlContent = (content || '')
       .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;');
+      .replace(/<strong>/g, '<strong>')
+      .replace(/<\/strong>/g, '</strong>')
+      .replace(/<em>/g, '<em>')
+      .replace(/<\/em>/g, '</em>');
 
     const printWindow = window.open('', '_blank');
     if (!printWindow) {
@@ -167,7 +170,7 @@ export default function Notepad() {
       body {
         margin: 0;
         min-height: 100vh;
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
         background: #020617;
         color: #f9fafb;
         display: flex;
@@ -235,11 +238,19 @@ export default function Notepad() {
       }
       .content {
         white-space: pre-wrap;
-        font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+        font-family: 'Calibri', 'Arial', 'Helvetica Neue', sans-serif;
         font-size: 13px;
-        line-height: 1.7;
-        letter-spacing: .03em;
+        line-height: 1.6;
+        letter-spacing: 0;
         color: #e5e7eb;
+      }
+      .content strong {
+        font-weight: 600;
+        color: #f9fafb;
+      }
+      .content em {
+        font-style: italic;
+        color: #cbd5e1;
       }
       .footer {
         margin-top: 32px;
@@ -292,8 +303,8 @@ export default function Notepad() {
           border: 1px solid #e5e7eb !important;
           max-width: 100%;
           width: 100%;
-          padding: 24px 28px !important;
-          border-radius: 12px !important;
+          padding: 20px 24px !important;
+          border-radius: 8px !important;
         }
         .pill { 
           color: #3730a3 !important; 
@@ -323,12 +334,22 @@ export default function Notepad() {
           background: linear-gradient(90deg, transparent, #d1d5db, transparent) !important;
           margin: 16px 0 20px !important;
         }
-        .content { 
+        .content {
           color: #111827 !important;
-          font-size: 10px !important;
-          line-height: 1.5 !important;
+          font-family: 'Calibri', 'Arial', 'Helvetica Neue', sans-serif !important;
+          font-size: 9.5px !important;
+          line-height: 1.35 !important;
           white-space: pre-wrap !important;
           word-wrap: break-word !important;
+          letter-spacing: -0.01em !important;
+        }
+        .content strong {
+          font-weight: 600 !important;
+          color: #000000 !important;
+        }
+        .content em {
+          font-style: italic !important;
+          color: #374151 !important;
         }
         .footer { 
           color: #6b7280 !important;
@@ -362,7 +383,7 @@ export default function Notepad() {
     <main class="card" aria-label="Resume document">
       <div class="pill">
         <span class="pill-dot"></span>
-        <span>AqadilOS · Resume Export</span>
+        <span>See You Space Cowboy...</span>
       </div>
       <h1 class="title">${baseName}</h1>
       <p class="subtitle">Exported from your AqadilOS Notepad</p>
@@ -372,9 +393,9 @@ export default function Notepad() {
         </div>
       </div>
       <div class="divider"></div>
-      <section class="content">${escapedContent}</section>
+      <section class="content">${htmlContent}</section>
       <div class="footer">
-        <span class="badge">Local export · No data leaves your browser</span>
+        <span class="badge">A true warrior needs no sword</span>
         <span>Designed in AqadilOS</span>
       </div>
     </main>
@@ -398,6 +419,16 @@ export default function Notepad() {
       className='h-full bg-[#1e1e1e] text-[#d4d4d4] font-mono text-[13px] flex flex-col'
       onClick={() => setShowFileMenu(false)}
     >
+      <style>{`
+        .notepad-content strong {
+          font-weight: 700;
+          color: #ffffff;
+        }
+        .notepad-content em {
+          font-style: italic;
+          color: #a8dadc;
+        }
+      `}</style>
       {}
       <div className='flex items-center gap-4 px-4 py-1 text-xs bg-[#2d2d2d] border-b border-[#1e1e1e] text-[#cccccc] relative select-none'>
         <button
@@ -518,13 +549,19 @@ export default function Notepad() {
             <span className='hidden sm:inline'>UTF-8 | Windows (CRLF)</span>
           </div>
 
-          <textarea
-            className='w-full flex-1 min-h-[260px] bg-[#1b1b1b] text-[#d4d4d4] px-5 py-4 leading-relaxed tracking-[0.03em] selection:bg-blue-500/40 selection:text-white text-[13px] outline-none border-none resize-none'
+          <div
+            className='w-full flex-1 min-h-[260px] bg-[#1b1b1b] text-[#d4d4d4] px-5 py-4 leading-relaxed tracking-[0.03em] selection:bg-blue-500/40 selection:text-white text-[13px] outline-none overflow-auto notepad-content'
+            contentEditable
+            suppressContentEditableWarning
             spellCheck={false}
-            value={content}
-            onChange={(e) => {
-              setContent(e.target.value);
+            dangerouslySetInnerHTML={{ __html: content }}
+            onInput={(e) => {
+              setContent(e.currentTarget.innerHTML);
               setIsDirty(true);
+            }}
+            style={{
+              whiteSpace: 'pre-wrap',
+              wordWrap: 'break-word',
             }}
           />
 
