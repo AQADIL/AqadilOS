@@ -2,25 +2,21 @@ export const RESUME_CONTENT = `
 <strong>ALISH AQADIL</strong>
 <em>Fullstack Developer</em>
 
-<strong>Astana, Kazakhstan</strong> | +7 776 234 9535 | admin@judgo.tech | github.com/AQADIL
+<strong>Astana, Kazakhstan</strong> | +7 776 234 9535 | admin@judgo.tech | youtub.maj@gmail.com | github.com/AQADIL
 
 <strong>SUMMARY</strong>
 Product-driven <strong>Fullstack Developer</strong> and <strong>EdTech founder</strong>. Specialized in architecting <em>scalable web ecosystems</em>, <em>real-time systems</em>, and <em>high-performance applications</em> from the ground up.
 Proven ability to bridge complex business logic with seamless user experiences, transitioning from conceptual design to secure, production-ready cloud infrastructure.
 
+
 <strong>TECHNICAL SKILLS</strong>
+
 <strong>Frontend:</strong> React 18, Next.js, JavaScript, Tailwind CSS, Headless UI, Lucide React, React Hot Toast
-
 <strong>3D, Motion & Visuals:</strong> Three.js, React Three Fiber (R3F), Drei, Framer Motion, Canvas API
-
 <strong>State Management & Architecture:</strong> Zustand, React Context API
-
 <strong>Backend & APIs:</strong> Node.js, Express.js, NestJS, Golang (Go), Python, REST API, WebSockets
-
 <strong>Database & Cloud Infrastructure:</strong> Firebase Ecosystem (Firestore, Auth, Cloud Functions, Realtime Database), PostgreSQL, MySQL, SQLite3
-
 <strong>Build Tools & DevOps:</strong> Vite, Rolldown (Vite core), Git, GitHub Flow, ESLint, PostCSS
-
 <strong>Specialized Libraries & Integrations:</strong> Monaco Editor, Recharts (Data Visualization), i18n (react-i18next), KaTeX (Math Rendering), Plyr (Media Integration)
 
 
